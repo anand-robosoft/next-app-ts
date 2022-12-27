@@ -6,6 +6,8 @@ import styles from '../styles/CharacterList.module.css'
 import Layout from '../Components/Layout';
 
 const Character: NextPage<{ results: Results[] }> = ({ results }) => {
+  console.log(process.env.API_DOMAIN); //its undefined, because its private, only shows for server side
+  console.log(process.env.NEXT_PUBLIC_TEST_KEY); //it will print
   return (
     <>
       <div className={styles.title}>Get Static Path</div>
@@ -28,7 +30,9 @@ const Character: NextPage<{ results: Results[] }> = ({ results }) => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const resp = await fetch("https://rickandmortyapi.com/api/character");
+  console.log(process.env.API_DOMAIN); //it will print
+  console.log(process.env.NEXT_PUBLIC_TEST_KEY); //it will print
+  const resp = await fetch(`${process.env.API_DOMAIN}/api/character`);
   const { results }: GetCharacter = await resp.json();
   return { props: { results } };
 }
